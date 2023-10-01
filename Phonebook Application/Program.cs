@@ -15,13 +15,15 @@ namespace PhonebookApplication
             {
                 if(!(phonebook.Count() == 0))
                 {
-                    Console.WriteLine("\nTo Add a new contact - 1, To Delete a contact - 2, To Display all contacts - 3");
+                    Console.WriteLine("\nTo Add a new contact - 1, To Delete a contact - 2, To Search for a contact - 3, To Display all contacts - 3");
                     int choice = int.Parse(Console.ReadLine());
 
                     if (choice == 1)
                         addContact(phonebook);
                     else if (choice == 2)
                         deleteContact(phonebook);
+                    else if(choice == 3)
+                        searchContact(phonebook);
                     else
                         loop = false;
                 }
@@ -75,8 +77,29 @@ namespace PhonebookApplication
             phonebook.Remove(deleteName);
 
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Contact was successfully deleted!");
+            Console.WriteLine("Contact was successfully deleted!\n");
             Console.ResetColor();
+        }
+
+        public static void searchContact(Dictionary<string, string> phonebook)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Enter the name of the contact you would like to find:");
+            Console.ResetColor();
+            string findName = Console.ReadLine();
+
+            if (phonebook[findName] != null)
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine($"{findName}, {phonebook[findName]}");
+                Console.ResetColor();
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("This contact doesn't exist!");
+                Console.ResetColor();
+            }
         }
     }
 }
